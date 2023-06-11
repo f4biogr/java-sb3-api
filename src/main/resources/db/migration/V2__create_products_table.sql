@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS api_db.TB_PRODUCTS(
+id UUID PRIMARY KEY,
+name VARCHAR(200),
+price numeric(12,2));

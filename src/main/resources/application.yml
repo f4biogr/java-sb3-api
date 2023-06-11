@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db
+    username: fabio
+    password: 46427230
+  jpa:
+#    hibernate:
+#      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: api_db
+#        jdbc:
+#          lob:
+#            non_contextual_creation: true
