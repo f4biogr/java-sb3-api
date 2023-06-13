@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: spring
+      POSTGRES_PASSWORD: boot
+      POSTGRES_DB: db
+    restart: always
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8080:8080
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    depends_on:
+      - db
+    ports:
+      - 8888:8888
