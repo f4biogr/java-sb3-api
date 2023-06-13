@@ -1,4 +1,4 @@
-INSERT INTO api_db.TB_PRODUCTS (id, name, price) VALUES
+INSERT INTO TB_PRODUCTS (id, name, price) VALUES
   (gen_random_uuid(), 'Smartphone Samsung Galaxy S21', 3999.00),
   (gen_random_uuid(), 'Notebook Dell Inspiron 15', 4899.00),
   (gen_random_uuid(), 'TV Samsung 55" LED 4K', 2499.00),
