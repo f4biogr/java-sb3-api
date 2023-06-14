@@ -25,7 +25,7 @@ jobs:
     - name: "Build, tag, and push the Docker image - latest"
       if: ${{ github.ref_name == 'main' }}
       env:
-        IMAGE_NAME: ${{secrets.DOCKER_USER}}/api
+        IMAGE_NAME: f4biogr/api
         IMAGE_TAG: latest
       run: |
         docker build -t $IMAGE_NAME:$IMAGE_TAG .
@@ -34,7 +34,7 @@ jobs:
     - name: "Build, tag, and push the Docker image"
       if: ${{ github.ref_name != 'main' }}
       env:
-        IMAGE_NAME: ${{secrets.DOCKER_USER}}/api
+        IMAGE_NAME: f4biogr/api
         IMAGE_TAG: ${{ github.ref_name }}
       run: |
         docker build -t $IMAGE_NAME:$IMAGE_TAG .
