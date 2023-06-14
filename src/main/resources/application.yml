@@ -1,16 +1,7 @@
 server:
-  port: 8888
+  port: "${SERVER_PORT}"
 spring:
   datasource:
-    url: jdbc:postgresql://db/db
-    username: spring
-    password: boot
-  jpa:
-    # hibernate:
-    #   ddl-auto: update
-    properties:
-      hibernate:
-        "[default_schema]": api_db
-      # jdbc:
-      #   lob:
-      #     "[non_contextual_creation]": true
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
