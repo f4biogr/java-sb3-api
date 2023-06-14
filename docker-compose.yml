@@ -1,25 +1,31 @@
 version: '3.1'
 services:
   db:
-    image: postgres:latest
+    image: "postgres:${PG_VERSION}"
     environment:
-      POSTGRES_USER: spring
-      POSTGRES_PASSWORD: boot
-      POSTGRES_DB: db
+      POSTGRES_USER: "${DATABASE_USERNAME}"
+      POSTGRES_PASSWORD: "${DATABASE_PASSWORD}"
+      POSTGRES_DB: "${DATABASE_NAME}"
     restart: always
 
   adminer:
-    image: adminer:latest
+    image: "adminer:${ADM_VERSION}"
+    environment:
+      ADMINER_DESIGN: "${DESIGN}"
     restart: always
     ports:
       - 8080:8080
 
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: f4biogr/spring-api
+    environment:
+      SERVER_PORT: "${SERVER_PORT}"
+      DATABASE_URL: "${DATABASE_URL}"
+      DATABASE_USERNAME: "${DATABASE_USERNAME}"
+      DATABASE_PASSWORD: "${DATABASE_PASSWORD}"
     restart: on-failure
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
     depends_on:
       - db
-    ports:
-      - 8888:8888
+
