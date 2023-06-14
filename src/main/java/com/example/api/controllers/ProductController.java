@@ -43,8 +43,8 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<Page<ProductModel>> getAllProducts(@PageableDefault(page = 0, size = 5) Pageable pageable) {
         Page<ProductModel> products = productRepository.findAll(pageable);
-        if(!products.isEmpty()){
-            for(ProductModel product : products){
+        if (!products.isEmpty()) {
+            for (ProductModel product : products) {
                 UUID id = product.getId();
                 product.add(linkTo(methodOn(ProductController.class).getOneProduct(id)).withSelfRel());
             }
@@ -53,16 +53,16 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Object> getOneProduct(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<EntityModel<ProductModel>> getOneProduct(@PathVariable(value = "id") UUID id) {
         Optional<ProductModel> productOptional = productRepository.findById(id);
-        if (!productOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+        if (productOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         EntityModel<ProductModel> entityModel = EntityModel.of(productOptional.get());
         Link selfLink = linkTo(ProductController.class).slash("products").slash(id).withSelfRel();
-        Link productsListLink = linkTo(ProductController.class).slash("products").withRel("Products List");
-        entityModel.add(selfLink, productsListLink);
+        Link productListLink = linkTo(ProductController.class).slash("products").withRel("Products List");
+        entityModel.add(selfLink, productListLink);
 
         return ResponseEntity.status(HttpStatus.OK).body(entityModel);
     }
@@ -81,9 +81,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity<Object> deleteProduct(@PathVariable(value = "id") UUID id){
+    public ResponseEntity<Object> deleteProduct(@PathVariable(value = "id") UUID id) {
         Optional<ProductModel> producOptional = productRepository.findById(id);
-        if(producOptional.isEmpty()){
+        if (producOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
         }
         productRepository.delete(producOptional.get());
