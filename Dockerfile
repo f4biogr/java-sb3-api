@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk as build
+FROM eclipse-temurin:17-jdk AS build
 
 ARG JAR_FILE=target/*.jar
 WORKDIR /builder

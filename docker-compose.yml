@@ -14,7 +14,7 @@ services:
       ADMINER_DESIGN: "${DESIGN}"
     restart: always
     ports:
-      - 8080:8080
+      - "8080:8080"
 
   api:
     image: f4biogr/spring-api
